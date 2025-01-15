@@ -1,0 +1,30 @@
+using RabbitMQ.Client;
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            // Instância da ConnectionFactory
+            var factory = new ConnectionFactory
+            {
+                HostName = "localhost", // Endereço do RabbitMQ
+                Port = 5672,            // Porta padrão do RabbitMQ
+                UserName = "guest",     // Usuário padrão
+                Password = "guest"      // Senha padrão
+            };
+
+            // Cria a conexão com o RabbitMQ
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
+
+            Console.WriteLine("Conexão com RabbitMQ estabelecida com sucesso!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao conectar ao RabbitMQ: {ex.Message}");
+        }
+    }
+}
